@@ -24,11 +24,20 @@ const makeAddEl = galleryItems.reduce((acc ,el) =>
      "")
 galleryEl.insertAdjacentHTML('afterbegin', makeAddEl);
 
-const onOpenModal = (e) => {
-    e.preventDefault();
+const onOpenModal = (el) => {
+  el.preventDefault();
+  if (el.target.nodeName !== 'IMG') {
+      return;
+  };
+  galleryItems.forEach(elem=> {
+    if (el.target.getAttribute('src') === elem.preview) {
+      imageEl.setAttribute('src', elem.original);
+      imageEl.setAttribute('alt', elem.description);
+    }
+  })
     window.addEventListener('keydown',escPress)
     openModalBtn.classList.add('is-open')
-    
+
   }
 const onCloseModal = () => {
     window.removeEventListener('keydown',escPress)
